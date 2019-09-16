@@ -107,7 +107,6 @@ const resolvers = {
 
     Mutation:{
         addStock: (root, {input}) =>{
-            console.log("S~~!", input)
             portfolio.push(input);
             return input
         }
