@@ -1,6 +1,7 @@
 const http = require('http');
 const express = require('express');
-let cors = require('cors')
+let cors = require('cors');
+const logger = require('morgan');
 
 const { ApolloServer, gql, PubSub } = require('apollo-server-express');
 const uuidv4 = require('uuid/v4');
@@ -10,6 +11,7 @@ const StockAPI = require("./datasources");
 const PORT = 4000;
 const app = express();
 app.use(cors())
+app.use(logger('dev'));
 
 /* Work on this */
 const typeDefs = gql`
@@ -69,25 +71,6 @@ const typeDefs = gql`
     }
 `;
 
-//    type Mutation{
-//        addStock(
-//        	symbol: String,
-//        	companyName: String,
-//            description: String,
-//            url: String
-//        	industry: String,
-//        	sector: String,
-//        	price: String
-//        ): Company
-//    }
-
-//mutation addStock($input:CompanyInput){
-//  addStock(input: $input){
-//    symbol
-//  }
-//}
-
-
 const portfolio = [
     {
         id: uuidv4(),
@@ -126,23 +109,7 @@ const resolvers = {
         addStock: async (root, {input}) =>{
             portfolio.push(input);
             return input
-    }
-
-//        addStock: (root, args) =>{
-//            const stockPick = {
-//                id          : uuidv4(),
-//				  symbol	  : args.symbol,
-//                companyName : args.companyName,
-//                description : args.description,
-//                url         : args.url,
-//                industry    : args.industry,
-//                sector      : args.sector,
-//                tags        : args.tags,
-//				  price		  : args.price
-//            };
-//            portfolio.push(stockPick);
-//            return stockPick
-//        }
+        }
     }
 };
 
@@ -158,7 +125,7 @@ const server = new ApolloServer({
 });
 
 server.applyMiddleware({app})
-
+console.log(process.env.IEX_TOKEN)
 const httpServer = http.createServer(app);
 server.installSubscriptionHandlers(httpServer);
 

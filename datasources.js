@@ -3,19 +3,19 @@ const { RESTDataSource } = require('apollo-datasource-rest');
 class StockAPI extends RESTDataSource{
     constructor(){
         super();
-        this.baseURL = 'https://api.iextrading.com/1.0';
+        this.baseURL = 'https://sandbox.iexapis.com/v1';
     }
 
     async getStockPrice(symbol){
-        return this.get(`/stock/${symbol}/price`);
+        return this.get(`/stock/${symbol}/price?token=${process.env.IEX_TOKEN}`);
     }
 
     async getCompanyData(symbol){
-        return this.get(`/stock/${symbol}/company`)
+        return this.get(`/stock/${symbol}/company?token=${process.env.IEX_TOKEN}`)
     }
 
 	async getStockLogo(symbol){
-        return this.get(`/stock/${symbol}/logo`);
+        return this.get(`/stock/${symbol}/logo?token=${process.env.IEX_TOKEN}`);
     }
 }
 
