@@ -3,7 +3,7 @@
 This is the backend for the [ngApolloApp](https://github.com/PythonDevOp/ngApolloApp). This must be running first before any data gets to the front end.
 
 ## Run
-** Requires an api key from [IEX Trading](https://iextrading.com/developer/docs/) to run. I used the `sandbox`
+** Requires an api key from [IEX Trading](https://iexcloud.io/) to run. I used the `sandbox`
 API key, as the endpoints require payment for data.
 
 The data will come back obfuscated as a result.
