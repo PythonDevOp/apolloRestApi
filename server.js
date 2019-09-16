@@ -106,7 +106,8 @@ const resolvers = {
     },
 
     Mutation:{
-        addStock: async (root, {input}) =>{
+        addStock: (root, {input}) =>{
+            console.log("S~~!", input)
             portfolio.push(input);
             return input
         }
@@ -125,7 +126,7 @@ const server = new ApolloServer({
 });
 
 server.applyMiddleware({app})
-console.log(process.env.IEX_TOKEN)
+
 const httpServer = http.createServer(app);
 server.installSubscriptionHandlers(httpServer);
 
